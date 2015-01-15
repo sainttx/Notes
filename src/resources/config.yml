@@ -8,4 +8,6 @@ note:
   - "Withdrawn by [player]"
 
 messages:
+  invalid-note: "This banknote is invalid! It has been removed from your inventory"
+  nothing-in-hand: "There is nothing in your hand for you to redeem"
   note-redeemed: "Banknote for $[money] has been redeemed"
