@@ -1,0 +1,11 @@
+# Banknotes by SainttX
+note:
+  material: PAPER
+  data: 0
+  name: "&lBanknote"
+  lore:
+  - "$[money]"
+  - "Withdrawn by [player]"
+
+messages:
+  note-redeemed: "hello"
