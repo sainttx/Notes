@@ -139,7 +139,8 @@ public class BanknotePlugin extends JavaPlugin {
      * @return True if the item represents a note, false otherwise
      */
     public boolean isBanknote(ItemStack itemstack) {
-        if (itemstack.getItemMeta().hasDisplayName() && itemstack.getItemMeta().hasLore()) {
+        if (itemstack.getType() == base.getType() && itemstack.getDurability() == base.getDurability()
+                && itemstack.getItemMeta().hasDisplayName() && itemstack.getItemMeta().hasLore()) {
             String display = itemstack.getItemMeta().getDisplayName();
             List<String> lore = itemstack.getItemMeta().getLore();
 

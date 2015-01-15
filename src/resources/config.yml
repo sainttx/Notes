@@ -1,4 +1,6 @@
 # Banknotes by SainttX
+# WARNING: If your users have notes and you modify this,
+#          their notes will be invalid and not registered by the plugin anymore
 note:
   material: PAPER
   data: 0
