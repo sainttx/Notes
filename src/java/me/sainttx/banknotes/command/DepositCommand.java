@@ -28,6 +28,8 @@ public class DepositCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can deposit bank notes");
+        } else if (!sender.hasPermission("banknotes.deposit")) {
+            sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("insufficient-permissions")));
         } else {
             Player player = (Player) sender;
             ItemStack item = player.getItemInHand();

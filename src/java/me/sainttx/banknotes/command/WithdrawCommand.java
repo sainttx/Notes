@@ -28,6 +28,8 @@ public class WithdrawCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can withdraw bank notes");
+        } else if (!sender.hasPermission("banknotes.withdraw")) {
+            sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("insufficient-permissions")));
         } else if (args.length == 0) {
             return false;
         } else {
