@@ -13,57 +13,14 @@ commands:
     description: Deposit a note
 
 permissions:
-  auction.*:
-    description: Gives access to all Auction commands
+  banknotes.*:
+    description: Gives access to all Banknotes commands
     children:
-      auction.bid: true
-      auction.start: true
-      auction.end: true
-      auction.end.bypass: true
-      auction.info: true
-      auction.ignore: true
-      auction.tax.exempt: true
-      auction.disable.bypass: true
-      auction.disable: true
-      auction.enable: true
-      auction.reload: true
-      auction.bypass.startdelay: true
-  auction.bid:
-    description: Allows you to bid on auctions
+      banknotes.withdraw: true
+      banknotes.deposit: true
+  banknotes.withdraw:
+    description: Allows you to withdraw banknotes
     default: true
-  auction.start:
-    description: Allows you to start auctions
+  banknotes.deposit:
+    description: Allows you to deposit banknotes
     default: true
-  auction.creative:
-    description: Allows you to start auctions in CREATIVE mode
-    default: op
-  auction.end:
-    description: Allows you to end auctions
-    default: op
-  auction.end.bypass:
-    description: Allows you to end auctions when ending is disallowed
-    default: op
-  auction.info:
-    description: Allows you to view auction information
-    default: true
-  auction.ignore:
-    description: Allows you to ignore auction messages
-    default: true
-  auction.tax.exempt:
-    description: Enables you to avoid auction taxes
-    default: op
-  auction.bypass.disable:
-    description: Enables you to start auctions in disabled mode
-    default: op
-  auction.bypass.startdelay:
-    description: Allows you to bypass the delay between auctions
-    default: op
-  auction.disable:
-    description: Allows you to put Auctions in permission-only mode
-    default: op
-  auction.enable:
-    description: Allows you to enable auctioning
-    default: op
-  auction.reload:
-    description: Allows you to reload the auction configuration
-    default: op
