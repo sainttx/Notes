@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public class BanknotePlugin extends JavaPlugin {
         getCommand("withdraw").setExecutor(new WithdrawCommand(this));
         getCommand("deposit").setExecutor(new DepositCommand(this));
 
-        // Reload
+        // Load base itemstack and lore
         reload();
     }
 
@@ -107,7 +108,20 @@ public class BanknotePlugin extends JavaPlugin {
      * @return The banknote as an item
      */
     public ItemStack createBanknote(Player creating, double amount) {
-        return null;
+        List<String> formatLore = new ArrayList<String>();
+
+        // Format the base lore
+        for (String baseLore : this.baseLore) {
+            formatLore.add(colorMessage(baseLore.replace("[money]", formatDouble(amount)).replace("[player]", creating.getName())));
+        }
+
+        // Add the base lore to the item
+        ItemStack ret = base.clone();
+        ItemMeta meta = ret.getItemMeta();
+        meta.setLore(formatLore);
+        ret.setItemMeta(meta);
+
+        return ret;
     }
 
     /**
