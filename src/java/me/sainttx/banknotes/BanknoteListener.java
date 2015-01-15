@@ -35,6 +35,7 @@ public class BanknoteListener implements Listener {
                     plugin.getEconomy().depositPlayer(event.getPlayer(), amount);
                     String message = plugin.getConfig().getString("messages.note-redeemed");
                     event.getPlayer().sendMessage(plugin.colorMessage(message.replace("[money]", plugin.formatDouble(amount))));
+                    event.getPlayer().getInventory().removeItem(item);
                 }
             }
         }
