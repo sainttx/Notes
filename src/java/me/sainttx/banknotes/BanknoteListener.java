@@ -32,7 +32,9 @@ public class BanknoteListener implements Listener {
                 double amount = plugin.getBanknoteAmount(item);
 
                 if (amount > 0) {
-
+                    plugin.getEconomy().depositPlayer(event.getPlayer(), amount);
+                    String message = plugin.getConfig().getString("messages.note-redeemed");
+                    event.getPlayer().sendMessage(plugin.colorMessage(message.replace("[money]", plugin.formatDouble(amount))));
                 }
             }
         }

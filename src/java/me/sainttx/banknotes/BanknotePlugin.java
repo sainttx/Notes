@@ -1,5 +1,6 @@
 package me.sainttx.banknotes;
 
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -7,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 /**
@@ -24,14 +26,54 @@ public class BanknotePlugin extends JavaPlugin {
      */
     private List<String> baseLore;
 
+    /*
+     * Vault economy implementation
+     */
+    private Economy economy;
+
     @Override
     public void onEnable() {
         // Save configuration and register listeners
         saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new BanknoteListener(this), this);
+        economy = getServer().getServicesManager().getRegistration(Economy.class).getProvider();
 
         // Reload
         reload();
+    }
+
+    /**
+     * Returns the Economy implementation
+     */
+    public Economy getEconomy() {
+        return economy;
+    }
+
+    /**
+     * Returns a formatted String representation of a double, rounded to 2
+     * decimal places
+     *
+     * @param value The double to be formatted
+     *
+     * @return A formatted string of the double
+     */
+    public String formatDouble(double value) {
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setMaximumFractionDigits(2);
+        nf.setMinimumFractionDigits(2);
+        return nf.format(value);
+    }
+
+    /**
+     * Returns a colored message
+     *
+     * @param message The original message
+     *
+     * @return The message formatted with char '&' replaced
+     *         by ChatColor.COLOR_CHAR
+     */
+    public String colorMessage(String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
 
     /**

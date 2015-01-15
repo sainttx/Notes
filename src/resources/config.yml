@@ -8,4 +8,4 @@ note:
   - "Withdrawn by [player]"
 
 messages:
-  note-redeemed: "hello"
+  note-redeemed: "Banknote for $[money] has been redeemed"
