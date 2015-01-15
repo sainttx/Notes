@@ -29,7 +29,7 @@ public class WithdrawCommand implements CommandExecutor {
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can withdraw bank notes");
         } else if (!sender.hasPermission("banknotes.withdraw")) {
-            sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("insufficient-permissions")));
+            sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.insufficient-permissions")));
         } else if (args.length == 0) {
             return false;
         } else {
@@ -39,20 +39,20 @@ public class WithdrawCommand implements CommandExecutor {
                 double amount = Double.parseDouble(args[0]);
 
                 if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("invalid-number")));
+                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-number")));
                 } else if (plugin.getEconomy().getBalance(player) < amount) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("insufficient-funds")));
+                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.insufficient-funds")));
                 } else if (player.getInventory().firstEmpty() == -1) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("inventory-full")));
+                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.inventory-full")));
                 } else {
                     ItemStack banknote = plugin.createBanknote(player, amount);
                     plugin.getEconomy().withdrawPlayer(player, amount);
 
                     player.getInventory().addItem(banknote);
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("note-created").replace("[money]", plugin.formatDouble(amount))));
+                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-created").replace("[money]", plugin.formatDouble(amount))));
                 }
             } catch (NumberFormatException invalidNumber) {
-                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("invalid-number")));
+                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-number")));
             }
         }
         return true;

@@ -29,7 +29,7 @@ public class DepositCommand implements CommandExecutor {
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can deposit bank notes");
         } else if (!sender.hasPermission("banknotes.deposit")) {
-            sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("insufficient-permissions")));
+            sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.insufficient-permissions")));
         } else {
             Player player = (Player) sender;
             ItemStack item = player.getItemInHand();
@@ -39,15 +39,15 @@ public class DepositCommand implements CommandExecutor {
 
                 if (amount > 0) {
                     plugin.getEconomy().depositPlayer(player, amount);
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("note-redeemed").replace("[money]", plugin.formatDouble(amount))));
+                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-redeemed").replace("[money]", plugin.formatDouble(amount))));
                 } else {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("invalid-note")));
+                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-note")));
                 }
 
                 // Remove the item
                 player.getInventory().removeItem(item);
             } else {
-                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("nothing-in-hand")));
+                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.nothing-in-hand")));
             }
         }
         return true;
