@@ -13,6 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Matthew on 14/01/2015.
@@ -33,6 +35,11 @@ public class BanknotePlugin extends JavaPlugin {
      * Vault economy implementation
      */
     private Economy economy;
+
+    /*
+     * REGEX to find money
+     */
+    private final Pattern MONEY_PATTERN = Pattern.compile("([+-]?[0-9]{1,3}(?:,?[0-9]{3})*\\.[0-9]{2})");
 
     @Override
     public void onEnable() {
@@ -92,7 +99,7 @@ public class BanknotePlugin extends JavaPlugin {
         // Load the base item
         base = new ItemStack(Material.getMaterial(getConfig().getString("note.material", "PAPER")), 1, (short) getConfig().getInt("note.data"));
         ItemMeta meta = base.getItemMeta();
-        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', getConfig().getString("note.name", "Banknote")));
+        meta.setDisplayName(colorMessage(getConfig().getString("note.name", "Banknote")));
         base.setItemMeta(meta);
 
         // Load the base lore
@@ -132,6 +139,13 @@ public class BanknotePlugin extends JavaPlugin {
      * @return True if the item represents a note, false otherwise
      */
     public boolean isBanknote(ItemStack itemstack) {
+        if (itemstack.getItemMeta().hasDisplayName() && itemstack.getItemMeta().hasLore()) {
+            String display = itemstack.getItemMeta().getDisplayName();
+            List<String> lore = itemstack.getItemMeta().getLore();
+
+            // The size thing for the lore is a bit ghetto
+            return display.equals(colorMessage(getConfig().getString("note.name"))) && lore.size() == getConfig().getStringList("note.lore").size();
+        }
         return false;
     }
 
@@ -144,6 +158,21 @@ public class BanknotePlugin extends JavaPlugin {
      *         item isn't a note
      */
     public double getBanknoteAmount(ItemStack itemstack) {
+        if (itemstack.getItemMeta().hasDisplayName() && itemstack.getItemMeta().hasLore()) {
+            String display = itemstack.getItemMeta().getDisplayName();
+            List<String> lore = itemstack.getItemMeta().getLore();
+
+            if (display.equals(colorMessage(getConfig().getString("note.name")))) {
+                for (String money : lore) {
+                    Matcher matcher = MONEY_PATTERN.matcher(money);
+
+                    if (matcher.find()) {
+                        String amount = matcher.group(1);
+                        return Double.parseDouble(amount.replaceAll(",", ""));
+                    }
+                }
+            }
+        }
         return 0;
     }
 }
