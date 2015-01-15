@@ -1,5 +1,7 @@
 package me.sainttx.banknotes;
 
+import me.sainttx.banknotes.command.DepositCommand;
+import me.sainttx.banknotes.command.WithdrawCommand;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -35,8 +37,12 @@ public class BanknotePlugin extends JavaPlugin {
     public void onEnable() {
         // Save configuration and register listeners
         saveDefaultConfig();
-        getServer().getPluginManager().registerEvents(new BanknoteListener(this), this);
         economy = getServer().getServicesManager().getRegistration(Economy.class).getProvider();
+        getServer().getPluginManager().registerEvents(new BanknoteListener(this), this);
+
+        // Register commands
+        getCommand("withdraw").setExecutor(new WithdrawCommand(this));
+        getCommand("deposit").setExecutor(new DepositCommand(this));
 
         // Reload
         reload();
