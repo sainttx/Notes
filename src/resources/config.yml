@@ -8,6 +8,10 @@ note:
   - "Withdrawn by [player]"
 
 messages:
+  insufficient-funds: "You do not have enough money to withdraw this amount"
+  inventory-full: "Please have a space open in your inventory to create a banknote"
   invalid-note: "This banknote is invalid! It has been removed from your inventory"
-  nothing-in-hand: "There is nothing in your hand for you to redeem"
+  invalid-number: "You provided an invalid number"
+  note-created: "You created a note for $[money]"
   note-redeemed: "Banknote for $[money] has been redeemed"
+  nothing-in-hand: "There is nothing in your hand for you to redeem"
