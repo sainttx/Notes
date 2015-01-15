@@ -55,6 +55,6 @@ public class WithdrawCommand implements CommandExecutor {
                 player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("invalid-number")));
             }
         }
-        return false;
+        return true;
     }
 }

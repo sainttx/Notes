@@ -9,6 +9,9 @@ depend: [Vault]
 commands:
   withdraw:
     description: Withdraw money as a note
+    usage: |
+           Withdraw money from your bank account as a note.
+           /<command> [amount]
   deposit:
     description: Deposit a note
 

@@ -50,6 +50,6 @@ public class DepositCommand implements CommandExecutor {
                 player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("nothing-in-hand")));
             }
         }
-        return false;
+        return true;
     }
 }
