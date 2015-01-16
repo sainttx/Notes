@@ -44,8 +44,12 @@ public class DepositCommand implements CommandExecutor {
                     player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-note")));
                 }
 
-                // Remove the item
-                player.getInventory().removeItem(item);
+                // Remove the slip
+                if (item.getAmount() <= 1) {
+                    player.getInventory().removeItem(item);
+                } else {
+                    item.setAmount(item.getAmount() - 1);
+                }
             } else {
                 player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.nothing-in-hand")));
             }
