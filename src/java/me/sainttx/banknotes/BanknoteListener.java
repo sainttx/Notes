@@ -25,7 +25,8 @@ public class BanknoteListener implements Listener {
 
     @EventHandler
     public void onPlayerClaimNote(PlayerInteractEvent event) {
-        if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
+        if ((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+                && event.getPlayer().hasPermission("banknotes.deposit")) {
             ItemStack item = event.getPlayer().getItemInHand();
 
             if (item != null && plugin.isBanknote(item)) {
