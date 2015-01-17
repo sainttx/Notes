@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -72,7 +73,7 @@ public class BanknotePlugin extends JavaPlugin {
      * @return A formatted string of the double
      */
     public String formatDouble(double value) {
-        NumberFormat nf = NumberFormat.getInstance();
+        NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
         nf.setMaximumFractionDigits(2);
         nf.setMinimumFractionDigits(2);
         return nf.format(value);
