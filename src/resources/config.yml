@@ -18,3 +18,7 @@ messages:
   note-created: "You created a note for $[money]"
   note-redeemed: "Banknote for $[money] has been redeemed"
   nothing-in-hand: "There is nothing in your hand for you to redeem"
+  less-than-minimum: "The amount you entered is less than the minimum allowed amount of"
+  
+settings:
+  minimum-withdraw-amount: 10.0
