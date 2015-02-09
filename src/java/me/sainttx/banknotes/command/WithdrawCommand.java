@@ -42,7 +42,7 @@ public class WithdrawCommand implements CommandExecutor {
                 if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
                     player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-number")));
                 } else if (amount < min) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("less-than-minimum") + " " + plugin.formatDouble(min)));
+                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.less-than-minimum").replace("[money]", plugin.formatDouble(min))));
                 } else if (plugin.getEconomy().getBalance(player) < amount) {
                     player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.insufficient-funds")));
                 } else if (player.getInventory().firstEmpty() == -1) {
