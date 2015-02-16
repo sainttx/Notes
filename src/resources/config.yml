@@ -19,6 +19,8 @@ messages:
   note-redeemed: "Banknote for $[money] has been redeemed"
   nothing-in-hand: "There is nothing in your hand for you to redeem"
   less-than-minimum: "The amount you entered is less than the minimum allowed amount of $[money]"
+  more-than-maximum: "The amount you entered is more than the maximum allowed amount of $[money]"
   
 settings:
   minimum-withdraw-amount: 10.0
+  maximum-withdraw-amount: 5000.0
