@@ -36,7 +36,12 @@ public class WithdrawCommand implements CommandExecutor {
             Player player = (Player) sender;
 
             try {
-                double amount = Double.parseDouble(args[0]);
+                double amount;
+                if (args[0].equalsIgnoreCase("all")) {
+                	amount = plugin.getEconomy().getBalance(player);
+                } else {
+                	amount = Double.parseDouble(args[0]);
+                }
                 double min = plugin.getConfig().getDouble("settings.minimum-withdraw-amount");
                 double max = plugin.getConfig().getDouble("settings.maximum-withdraw-amount");
 
