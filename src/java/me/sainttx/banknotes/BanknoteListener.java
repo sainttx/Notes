@@ -1,6 +1,7 @@
 package me.sainttx.banknotes;
 
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -23,7 +24,7 @@ public class BanknoteListener implements Listener {
         this.plugin = plugin;
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onPlayerClaimNote(PlayerInteractEvent event) {
         if (!plugin.getConfig().getBoolean("settings.allow-right-click-to-deposit-notes", true)) {
             return;
