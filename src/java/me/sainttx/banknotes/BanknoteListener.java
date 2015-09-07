@@ -25,6 +25,10 @@ public class BanknoteListener implements Listener {
 
     @EventHandler
     public void onPlayerClaimNote(PlayerInteractEvent event) {
+        if (!plugin.getConfig().getBoolean("settings.allow-right-click-to-deposit-notes", true)) {
+            return;
+        }
+
         if ((event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
                 && event.getPlayer().hasPermission("banknotes.deposit")) {
             ItemStack item = event.getPlayer().getItemInHand();
