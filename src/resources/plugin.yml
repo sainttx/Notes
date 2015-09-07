@@ -14,6 +14,12 @@ commands:
            /<command> [amount]
   deposit:
     description: Deposit a note
+  banknotes:
+    description: Reload the Banknotes plugin
+    aliases: [ banknote, bn, notes, note ]
+    usage: |
+           Reload the Banknotes plugin.
+           /<command> reload
 
 permissions:
   banknotes.*:
@@ -21,9 +27,13 @@ permissions:
     children:
       banknotes.withdraw: true
       banknotes.deposit: true
+      banknotes.reload: true
   banknotes.withdraw:
     description: Allows you to withdraw banknotes
     default: true
   banknotes.deposit:
     description: Allows you to deposit banknotes
     default: true
+  banknotes.reload:
+    description: Allows you to reload the plugin
+    default: op

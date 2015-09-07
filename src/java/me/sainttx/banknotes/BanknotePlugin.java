@@ -52,6 +52,7 @@ public class BanknotePlugin extends JavaPlugin {
         // Register commands
         getCommand("withdraw").setExecutor(new WithdrawCommand(this));
         getCommand("deposit").setExecutor(new DepositCommand(this));
+        getCommand("banknotes").setExecutor(new WithdrawCommand(this));
 
         // Load base itemstack and lore
         reload();
