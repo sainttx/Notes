@@ -1,6 +1,8 @@
 package me.sainttx.banknotes.command;
 
 import me.sainttx.banknotes.BanknotePlugin;
+import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,17 +45,27 @@ public class WithdrawCommand implements CommandExecutor {
 
                 if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
                     player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-number")));
-                } else if (amount < min) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.less-than-minimum").replace("[money]", plugin.formatDouble(min))));
-                } else if (amount > max) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.more-than-maximum").replace("[money]", plugin.formatDouble(max))));
-                } else if (plugin.getEconomy().getBalance(player) < amount) {
+                } else if (Double.compare(amount, min) < 0) {
+                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.less-than-minimum")
+                            .replace("[money]", plugin.formatDouble(min))));
+                } else if (Double.compare(amount, max) > 0) {
+                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.more-than-maximum")
+                            .replace("[money]", plugin.formatDouble(max))));
+                } else if (Double.compare(plugin.getEconomy().getBalance(player), amount) < 0) {
                     player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.insufficient-funds")));
                 } else if (player.getInventory().firstEmpty() == -1) {
                     player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.inventory-full")));
                 } else {
                     ItemStack banknote = plugin.createBanknote(player, amount);
-                    plugin.getEconomy().withdrawPlayer(player, amount);
+                    EconomyResponse response = plugin.getEconomy().withdrawPlayer(player, amount);
+
+                    if (response == null || !response.transactionSuccess()) {
+                        player.sendMessage(ChatColor.RED + "There was an error processing your transaction");
+                        plugin.getLogger().warning("Error processing player withdrawal " +
+                                "(" + player.getName() + " for $" + plugin.formatDouble(amount) + ") " +
+                                "[message: " + (response == null ? "null" : response.errorMessage) + "]");
+                        return true;
+                    }
 
                     player.getInventory().addItem(banknote);
                     player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-created").replace("[money]", plugin.formatDouble(amount))));
