@@ -37,9 +37,11 @@ public class DepositCommand implements CommandExecutor {
             if (item != null && plugin.isBanknote(item)) {
                 double amount = plugin.getBanknoteAmount(item);
 
-                if (amount > 0) {
+                if (Double.compare(amount, 0) > 0) {
+                    // Double check the response
                     plugin.getEconomy().depositPlayer(player, amount);
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-redeemed").replace("[money]", plugin.formatDouble(amount))));
+                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-redeemed")
+                            .replace("[money]", plugin.formatDouble(amount))));
                 } else {
                     player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-note")));
                 }
