@@ -1,11 +1,9 @@
-package me.sainttx.banknotes.command;
+package com.sainttx.banknotes.command;
 
-import me.sainttx.banknotes.BanknotePlugin;
+import com.sainttx.banknotes.BanknotePlugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * Created by Matthew on 9/7/2015.

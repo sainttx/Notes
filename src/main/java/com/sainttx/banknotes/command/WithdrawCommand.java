@@ -1,6 +1,6 @@
-package me.sainttx.banknotes.command;
+package com.sainttx.banknotes.command;
 
-import me.sainttx.banknotes.BanknotePlugin;
+import com.sainttx.banknotes.BanknotePlugin;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;

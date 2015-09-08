@@ -1,10 +1,10 @@
-name: Banknotes
-version: 1.6.1
-description: A plugin to withdraw money and store it as a paper note
+name: ${project.name}
+version: ${project.version}
+description: ${project.description}
 author: SainttX
 
-main: me.sainttx.banknotes.BanknotePlugin
-depend: [Vault]
+main: com.sainttx.banknotes.BanknotePlugin
+depend: [ Vault ]
 
 commands:
   withdraw:

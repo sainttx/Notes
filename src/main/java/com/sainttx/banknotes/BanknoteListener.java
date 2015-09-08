@@ -1,4 +1,4 @@
-package me.sainttx.banknotes;
+package com.sainttx.banknotes;
 
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;

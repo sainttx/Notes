@@ -1,8 +1,8 @@
-package me.sainttx.banknotes;
+package com.sainttx.banknotes;
 
-import me.sainttx.banknotes.command.BanknotesCommand;
-import me.sainttx.banknotes.command.DepositCommand;
-import me.sainttx.banknotes.command.WithdrawCommand;
+import com.sainttx.banknotes.command.BanknotesCommand;
+import com.sainttx.banknotes.command.DepositCommand;
+import com.sainttx.banknotes.command.WithdrawCommand;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
