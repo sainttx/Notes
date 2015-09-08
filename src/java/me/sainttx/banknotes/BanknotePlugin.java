@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.text.NumberFormat;
@@ -47,13 +48,28 @@ public class BanknotePlugin extends JavaPlugin {
     public void onEnable() {
         // Save configuration and register listeners
         saveDefaultConfig();
-        economy = getServer().getServicesManager().getRegistration(Economy.class).getProvider();
         getServer().getPluginManager().registerEvents(new BanknoteListener(this), this);
 
         // Register commands
         getCommand("withdraw").setExecutor(new WithdrawCommand(this));
         getCommand("deposit").setExecutor(new DepositCommand(this));
         getCommand("banknotes").setExecutor(new BanknotesCommand(this));
+
+        // Load economy a tick later
+        getServer().getScheduler().runTask(this, new Runnable() {
+            @Override
+            public void run() {
+                RegisteredServiceProvider<Economy> provider = getServer().getServicesManager().getRegistration(Economy.class);
+
+                if (provider == null) {
+                    getLogger().info("Failed to find a valid economy provider, disabling...");
+                    getServer().getPluginManager().disablePlugin(BanknotePlugin.this);
+                } else {
+                    economy = provider.getProvider();
+                    getLogger().info("Found economy provider " + provider.getPlugin().getName());
+                }
+            }
+        });
 
         // Load base itemstack and lore
         reload();
@@ -71,7 +87,6 @@ public class BanknotePlugin extends JavaPlugin {
      * decimal places
      *
      * @param value The double to be formatted
-     *
      * @return A formatted string of the double
      */
     public String formatDouble(double value) {
@@ -85,9 +100,8 @@ public class BanknotePlugin extends JavaPlugin {
      * Returns a colored message
      *
      * @param message The original message
-     *
      * @return The message formatted with char '&' replaced
-     *         by ChatColor.COLOR_CHAR
+     * by ChatColor.COLOR_CHAR
      */
     public String colorMessage(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
@@ -112,9 +126,8 @@ public class BanknotePlugin extends JavaPlugin {
     /**
      * Creates a Banknote
      *
-     * @param creating  The player creating the note
-     * @param amount    The amount of money on the note
-     *
+     * @param creating The player creating the note
+     * @param amount   The amount of money on the note
      * @return The banknote as an item
      */
     public ItemStack createBanknote(Player creating, double amount) {
@@ -138,7 +151,6 @@ public class BanknotePlugin extends JavaPlugin {
      * Returns whether an ItemStack is a banknote
      *
      * @param itemstack The item that may or may not be a note
-     *
      * @return True if the item represents a note, false otherwise
      */
     public boolean isBanknote(ItemStack itemstack) {
@@ -157,9 +169,8 @@ public class BanknotePlugin extends JavaPlugin {
      * Returns the amount of money that the banknote holds
      *
      * @param itemstack The banknote
-     *
      * @return The amount of money that the note holds, 0 if the
-     *         item isn't a note
+     * item isn't a note
      */
     public double getBanknoteAmount(ItemStack itemstack) {
         if (itemstack.getItemMeta().hasDisplayName() && itemstack.getItemMeta().hasLore()) {
