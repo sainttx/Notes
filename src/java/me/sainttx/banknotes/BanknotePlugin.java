@@ -1,5 +1,6 @@
 package me.sainttx.banknotes;
 
+import me.sainttx.banknotes.command.BanknotesCommand;
 import me.sainttx.banknotes.command.DepositCommand;
 import me.sainttx.banknotes.command.WithdrawCommand;
 import net.milkbowl.vault.economy.Economy;
@@ -52,7 +53,7 @@ public class BanknotePlugin extends JavaPlugin {
         // Register commands
         getCommand("withdraw").setExecutor(new WithdrawCommand(this));
         getCommand("deposit").setExecutor(new DepositCommand(this));
-        getCommand("banknotes").setExecutor(new WithdrawCommand(this));
+        getCommand("banknotes").setExecutor(new BanknotesCommand(this));
 
         // Load base itemstack and lore
         reload();
