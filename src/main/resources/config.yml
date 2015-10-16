@@ -16,11 +16,14 @@ messages:
   invalid-note: "This banknote is invalid! It has been removed from your inventory"
   invalid-number: "You provided an invalid number"
   note-created: "You created a note for $[money]"
+  note-given: "You gave a note for $[money] to [player]"
+  note-received: "You were given a note for $[money] by [player]"
   note-redeemed: "Banknote for $[money] has been redeemed"
   nothing-in-hand: "There is nothing in your hand for you to redeem"
   less-than-minimum: "The amount you entered is less than the minimum allowed amount of $[money]"
   more-than-maximum: "The amount you entered is more than the maximum allowed amount of $[money]"
   reloaded: "The Banknotes config.yml has been reloaded"
+  target-not-found: "Couldn't find a player with that name"
   
 settings:
   minimum-withdraw-amount: 10.0

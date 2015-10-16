@@ -56,7 +56,7 @@ public class WithdrawCommand implements CommandExecutor {
                 } else if (player.getInventory().firstEmpty() == -1) {
                     player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.inventory-full")));
                 } else {
-                    ItemStack banknote = plugin.createBanknote(player, amount);
+                    ItemStack banknote = plugin.createBanknote(player.getName(), amount);
                     EconomyResponse response = plugin.getEconomy().withdrawPlayer(player, amount);
 
                     if (response == null || !response.transactionSuccess()) {

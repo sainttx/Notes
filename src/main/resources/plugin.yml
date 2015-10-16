@@ -18,8 +18,8 @@ commands:
     description: Reload the Banknotes plugin
     aliases: [ banknote, bn, notes, note ]
     usage: |
-           Reload the Banknotes plugin.
-           /<command> reload
+           Reload the plugin or give banknotes to players.
+           /<command> <reload|give <player> <amount>>
 
 permissions:
   banknotes.*:

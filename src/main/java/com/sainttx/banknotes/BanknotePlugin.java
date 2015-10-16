@@ -6,7 +6,6 @@ import com.sainttx.banknotes.command.WithdrawCommand;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -104,6 +103,9 @@ public class BanknotePlugin extends JavaPlugin {
      * by ChatColor.COLOR_CHAR
      */
     public String colorMessage(String message) {
+        if (message == null) {
+            return message;
+        }
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 
@@ -126,16 +128,16 @@ public class BanknotePlugin extends JavaPlugin {
     /**
      * Creates a Banknote
      *
-     * @param creating The player creating the note
-     * @param amount   The amount of money on the note
+     * @param creatorName The name of who is creating the note
+     * @param amount      The amount of money on the note
      * @return The banknote as an item
      */
-    public ItemStack createBanknote(Player creating, double amount) {
+    public ItemStack createBanknote(String creatorName, double amount) {
         List<String> formatLore = new ArrayList<String>();
 
         // Format the base lore
         for (String baseLore : this.baseLore) {
-            formatLore.add(colorMessage(baseLore.replace("[money]", formatDouble(amount)).replace("[player]", creating.getName())));
+            formatLore.add(colorMessage(baseLore.replace("[money]", formatDouble(amount)).replace("[player]", creatorName)));
         }
 
         // Add the base lore to the item
