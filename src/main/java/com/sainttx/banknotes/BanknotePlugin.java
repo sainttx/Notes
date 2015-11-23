@@ -41,7 +41,7 @@ public class BanknotePlugin extends JavaPlugin {
     /*
      * REGEX to find money
      */
-    private final Pattern MONEY_PATTERN = Pattern.compile("([+-]?[0-9]{1,3}(?:,?[0-9]{3})*\\.[0-9]{2})");
+    private final Pattern MONEY_PATTERN = Pattern.compile("([+-]?[0-9]{1,3}(?:,?[0-9]{3})(?:\\.)?[0-9]{0,2})");
 
     @Override
     public void onEnable() {
@@ -90,8 +90,12 @@ public class BanknotePlugin extends JavaPlugin {
      */
     public String formatDouble(double value) {
         NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
-        nf.setMaximumFractionDigits(2);
-        nf.setMinimumFractionDigits(2);
+
+        int max = getConfig().getInt("settings.maximum-float-amount");
+        int min = getConfig().getInt("settings.minimum-float-amount");
+
+        nf.setMaximumFractionDigits(max);
+        nf.setMinimumFractionDigits(min);
         return nf.format(value);
     }
 
