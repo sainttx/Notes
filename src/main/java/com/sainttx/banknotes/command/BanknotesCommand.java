@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -61,13 +62,27 @@ public class BanknotesCommand implements CommandExecutor {
                     sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-number")));
                 } else {
                     ItemStack banknote = plugin.createBanknote(sender.getName(), amount);
-                    target.getInventory().addItem(banknote);
-                    target.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-received")
-                            .replace("[money]", plugin.formatDouble(amount))
-                            .replace("[player]", sender.getName())));
-                    sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-given")
-                            .replace("[money]", plugin.formatDouble(amount))
-                            .replace("[player]", target.getName())));
+                    
+                    if (sender instanceof ConsoleCommandSender) {
+                        String senderName = plugin.getConfig().getString("settings.console-name");
+
+                        target.getInventory().addItem(banknote);
+                        target.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-received")
+                                .replace("[money]", plugin.formatDouble(amount))
+                                .replace("[player]", senderName)));
+                        sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-given")
+                                .replace("[money]", plugin.formatDouble(amount))
+                                .replace("[player]", target.getName())));
+                    }else if (sender instanceof Player) {
+
+                        target.getInventory().addItem(banknote);
+                        target.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-received")
+                                .replace("[money]", plugin.formatDouble(amount))
+                                .replace("[player]", sender.getName())));
+                        sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-given")
+                                .replace("[money]", plugin.formatDouble(amount))
+                                .replace("[player]", target.getName())));
+                    }
                 }
             }
             return true;
