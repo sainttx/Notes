@@ -62,7 +62,7 @@ public class BanknotesCommand implements CommandExecutor {
                     sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-number")));
                 } else {
                     ItemStack banknote = plugin.createBanknote(sender.getName(), amount);
-
+                    target.getInventory().addItem(banknote);
 
                     //Use console-name if the note is given by a console command
                     String senderName = sender instanceof ConsoleCommandSender ? plugin.getConfig().getString("settings.console-name") : sender.getName();
