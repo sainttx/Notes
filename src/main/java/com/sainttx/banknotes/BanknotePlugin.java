@@ -41,8 +41,8 @@ public class BanknotePlugin extends JavaPlugin {
     /*
      * REGEX to find money
      */
-    private final Pattern MONEY_PATTERN = Pattern.compile("([+-]?[0-9]{1,3}(?:,?[0-9]{3})(?:\\.)?[0-9]{0,2})");
-
+    //Original Regex just in case: ([+-]?[0-9]{1,3}(?:,?[0-9]{3})(?:\.)?[0-9]{0,2})
+    private final Pattern MONEY_PATTERN = Pattern.compile("((([1-9]\\d{0,2}(,\\d{3})*)|(([1-9]\\d*)?\\d))(\\.?\\d?\\d?)?$)");
     @Override
     public void onEnable() {
         // Save configuration and register listeners
@@ -194,6 +194,8 @@ public class BanknotePlugin extends JavaPlugin {
                     if (matcher.find()) {
                         String amount = matcher.group(1);
                         return Double.parseDouble(amount.replaceAll(",", ""));
+
+
                     }
                 }
             }
