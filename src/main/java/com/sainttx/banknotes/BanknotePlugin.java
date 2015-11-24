@@ -141,6 +141,11 @@ public class BanknotePlugin extends JavaPlugin {
 
         // Format the base lore
         for (String baseLore : this.baseLore) {
+
+            if (creatorName == "CONSOLE") {
+                creatorName = getConfig().getString("settings.console-name");
+            }
+
             formatLore.add(colorMessage(baseLore.replace("[money]", formatDouble(amount)).replace("[player]", creatorName)));
         }
 
