@@ -114,6 +114,20 @@ public class BanknotePlugin extends JavaPlugin {
     }
 
     /**
+     * Returns a message from console formatted with {@link ChatColor#translateAlternateColorCodes(char, String)}
+     *
+     * @param path the path to the message
+     * @return the message
+     */
+    public String getMessage(String path) {
+        if (!getConfig().isString(path)) {
+            return path;
+        }
+
+        return ChatColor.translateAlternateColorCodes('&', getConfig().getString(path));
+    }
+
+    /**
      * Reloads the configuration, the item, and it's lore
      */
     public void reload() {
@@ -141,7 +155,6 @@ public class BanknotePlugin extends JavaPlugin {
 
         // Format the base lore
         for (String baseLore : this.baseLore) {
-
             if (creatorName.equals("CONSOLE")) {
                 creatorName = getConfig().getString("settings.console-name");
             }
@@ -170,7 +183,7 @@ public class BanknotePlugin extends JavaPlugin {
             List<String> lore = itemstack.getItemMeta().getLore();
 
             // The size thing for the lore is a bit ghetto
-            return display.equals(colorMessage(getConfig().getString("note.name"))) && lore.size() == getConfig().getStringList("note.lore").size();
+            return display.equals(this.getMessage("note.name")) && lore.size() == getConfig().getStringList("note.lore").size();
         }
         return false;
     }
@@ -187,7 +200,7 @@ public class BanknotePlugin extends JavaPlugin {
             String display = itemstack.getItemMeta().getDisplayName();
             List<String> lore = itemstack.getItemMeta().getLore();
 
-            if (display.equals(colorMessage(getConfig().getString("note.name")))) {
+            if (display.equals(this.getMessage("note.name"))) {
                 for (String money : lore) {
                     Matcher matcher = MONEY_PATTERN.matcher(money);
 

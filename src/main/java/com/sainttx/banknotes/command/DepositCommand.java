@@ -29,7 +29,7 @@ public class DepositCommand implements CommandExecutor {
         if (!(sender instanceof Player)) {
             sender.sendMessage("Only players can deposit bank notes");
         } else if (!sender.hasPermission("banknotes.deposit")) {
-            sender.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.insufficient-permissions")));
+            sender.sendMessage(plugin.getMessage("messages.insufficient-permissions"));
         } else {
             Player player = (Player) sender;
             ItemStack item = player.getItemInHand();
@@ -40,10 +40,10 @@ public class DepositCommand implements CommandExecutor {
                 if (Double.compare(amount, 0) > 0) {
                     // Double check the response
                     plugin.getEconomy().depositPlayer(player, amount);
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-redeemed")
-                            .replace("[money]", plugin.formatDouble(amount))));
+                    player.sendMessage(plugin.getMessage("messages.note-redeemed")
+                            .replace("[money]", plugin.formatDouble(amount)));
                 } else {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-note")));
+                    player.sendMessage(plugin.getMessage("messages.invalid-note"));
                 }
 
                 // Remove the slip
@@ -53,7 +53,7 @@ public class DepositCommand implements CommandExecutor {
                     item.setAmount(item.getAmount() - 1);
                 }
             } else {
-                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.nothing-in-hand")));
+                player.sendMessage(plugin.getMessage("messages.nothing-in-hand"));
             }
         }
         return true;

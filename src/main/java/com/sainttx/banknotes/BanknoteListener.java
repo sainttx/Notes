@@ -70,8 +70,7 @@ public class BanknoteListener implements Listener {
         }
 
         // Deposit the money
-        String message = plugin.getConfig().getString("messages.note-redeemed");
-        player.sendMessage(plugin.colorMessage(message.replace("[money]", plugin.formatDouble(amount))));
+        player.sendMessage(plugin.getMessage("messages.note-redeemed").replace("[money]", plugin.formatDouble(amount)));
 
         // Remove the slip
         if (item.getAmount() <= 1) {
