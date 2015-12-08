@@ -65,7 +65,7 @@ public class BanknotesCommand implements CommandExecutor {
                     target.getInventory().addItem(banknote);
 
                     //Use console-name if the note is given by a console command
-                    String senderName = sender instanceof ConsoleCommandSender ? plugin.getConfig().getString("settings.console-name") : sender.getName();
+                    String senderName = sender instanceof ConsoleCommandSender ? plugin.getMessage("settings.console-name") : sender.getName();
                     target.sendMessage(plugin.getMessage("messages.note-received")
                             .replace("[money]", plugin.formatDouble(amount))
                             .replace("[player]", senderName));
