@@ -36,44 +36,48 @@ public class WithdrawCommand implements CommandExecutor {
             return false;
         } else {
             Player player = (Player) sender;
+            double amount;
 
             try {
-                double amount = args[0].equalsIgnoreCase("all")
+                amount = args[0].equalsIgnoreCase("all")
                         ? plugin.getEconomy().getBalance(player) : Double.parseDouble(args[0]);
-                double min = plugin.getConfig().getDouble("settings.minimum-withdraw-amount");
-                double max = plugin.getConfig().getDouble("settings.maximum-withdraw-amount");
-
-                if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-number")));
-                } else if (Double.compare(amount, min) < 0) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.less-than-minimum")
-                            .replace("[money]", plugin.formatDouble(min))));
-                } else if (Double.compare(amount, max) > 0) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.more-than-maximum")
-                            .replace("[money]", plugin.formatDouble(max))));
-                } else if (Double.compare(plugin.getEconomy().getBalance(player), amount) < 0) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.insufficient-funds")));
-                } else if (player.getInventory().firstEmpty() == -1) {
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.inventory-full")));
-                } else {
-                    ItemStack banknote = plugin.createBanknote(player.getName(), amount);
-                    EconomyResponse response = plugin.getEconomy().withdrawPlayer(player, amount);
-
-                    if (response == null || !response.transactionSuccess()) {
-                        player.sendMessage(ChatColor.RED + "There was an error processing your transaction");
-                        plugin.getLogger().warning("Error processing player withdrawal " +
-                                "(" + player.getName() + " for $" + plugin.formatDouble(amount) + ") " +
-                                "[message: " + (response == null ? "null" : response.errorMessage) + "]");
-                        return true;
-                    }
-
-                    player.getInventory().addItem(banknote);
-                    player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-created").replace("[money]", plugin.formatDouble(amount))));
-                }
             } catch (NumberFormatException invalidNumber) {
                 player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-number")));
+                return true;
+            }
+
+            double min = plugin.getConfig().getDouble("settings.minimum-withdraw-amount");
+            double max = plugin.getConfig().getDouble("settings.maximum-withdraw-amount");
+
+            if (Double.isNaN(amount) || Double.isInfinite(amount) || amount <= 0) {
+                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.invalid-number")));
+            } else if (Double.compare(amount, min) < 0) {
+                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.less-than-minimum")
+                        .replace("[money]", plugin.formatDouble(min))));
+            } else if (Double.compare(amount, max) > 0) {
+                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.more-than-maximum")
+                        .replace("[money]", plugin.formatDouble(max))));
+            } else if (Double.compare(plugin.getEconomy().getBalance(player), amount) < 0) {
+                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.insufficient-funds")));
+            } else if (player.getInventory().firstEmpty() == -1) {
+                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.inventory-full")));
+            } else {
+                ItemStack banknote = plugin.createBanknote(player.getName(), amount);
+                EconomyResponse response = plugin.getEconomy().withdrawPlayer(player, amount);
+
+                if (response == null || !response.transactionSuccess()) {
+                    player.sendMessage(ChatColor.RED + "There was an error processing your transaction");
+                    plugin.getLogger().warning("Error processing player withdrawal " +
+                            "(" + player.getName() + " for $" + plugin.formatDouble(amount) + ") " +
+                            "[message: " + (response == null ? "null" : response.errorMessage) + "]");
+                    return true;
+                }
+
+                player.getInventory().addItem(banknote);
+                player.sendMessage(plugin.colorMessage(plugin.getConfig().getString("messages.note-created").replace("[money]", plugin.formatDouble(amount))));
             }
         }
+
         return true;
     }
 }
