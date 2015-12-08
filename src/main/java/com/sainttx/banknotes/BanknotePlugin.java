@@ -41,8 +41,8 @@ public class BanknotePlugin extends JavaPlugin {
     /*
      * REGEX to find money
      */
-    private final Pattern MONEY_PATTERN = Pattern.compile("([+-]?[0-9]{1,3}(?:,?[0-9]{3})*\\.[0-9]{2})");
-
+    //Original Regex just in case: ([+-]?[0-9]{1,3}(?:,?[0-9]{3})(?:\.)?[0-9]{0,2})
+    private final Pattern MONEY_PATTERN = Pattern.compile("((([1-9]\\d{0,2}(,\\d{3})*)|(([1-9]\\d*)?\\d))(\\.?\\d?\\d?)?$)");
     @Override
     public void onEnable() {
         // Save configuration and register listeners
@@ -90,8 +90,12 @@ public class BanknotePlugin extends JavaPlugin {
      */
     public String formatDouble(double value) {
         NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
-        nf.setMaximumFractionDigits(2);
-        nf.setMinimumFractionDigits(2);
+
+        int max = getConfig().getInt("settings.maximum-float-amount");
+        int min = getConfig().getInt("settings.minimum-float-amount");
+
+        nf.setMaximumFractionDigits(max);
+        nf.setMinimumFractionDigits(min);
         return nf.format(value);
     }
 
@@ -137,6 +141,10 @@ public class BanknotePlugin extends JavaPlugin {
 
         // Format the base lore
         for (String baseLore : this.baseLore) {
+
+            if (creatorName.equals("CONSOLE")) {
+                creatorName = getConfig().getString("settings.console-name");
+            }
             formatLore.add(colorMessage(baseLore.replace("[money]", formatDouble(amount)).replace("[player]", creatorName)));
         }
 
@@ -186,6 +194,8 @@ public class BanknotePlugin extends JavaPlugin {
                     if (matcher.find()) {
                         String amount = matcher.group(1);
                         return Double.parseDouble(amount.replaceAll(",", ""));
+
+
                     }
                 }
             }

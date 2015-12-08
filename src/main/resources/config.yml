@@ -26,6 +26,9 @@ messages:
   target-not-found: "Couldn't find a player with that name"
   
 settings:
+  console-name: "&7Server"
+  minimum-float-amount: 0
+  maximum-float-amount: 2
   minimum-withdraw-amount: 10.0
   maximum-withdraw-amount: 5000.0
   allow-right-click-to-deposit-notes: true
