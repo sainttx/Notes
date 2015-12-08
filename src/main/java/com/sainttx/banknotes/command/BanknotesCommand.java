@@ -72,35 +72,6 @@ public class BanknotesCommand implements CommandExecutor {
                     sender.sendMessage(plugin.getMessage("messages.note-given")
                             .replace("[money]", plugin.formatDouble(amount))
                             .replace("[player]", target.getName()));
-
-
-        /*
-
-                    //Old code, just in case.
-
-                    if (sender instanceof ConsoleCommandSender) {
-                        String senderName = plugin.getConfig().getString("settings.console-name");
-                        target.getInventory().addItem(banknote);
-
-                        target.sendMessage(plugin.getMessage("messages.note-received")
-                                .replace("[money]", plugin.formatDouble(amount))
-                                .replace("[player]", senderName)));
-                        sender.sendMessage(plugin.getMessage("messages.note-given")
-                                .replace("[money]", plugin.formatDouble(amount))
-                                .replace("[player]", target.getName())));
-                    }else if (sender instanceof Player) {
-
-                        target.getInventory().addItem(banknote);
-                        target.sendMessage(plugin.getMessage("messages.note-received")
-                                .replace("[money]", plugin.formatDouble(amount))
-                                .replace("[player]", sender.getName())));
-                        sender.sendMessage(plugin.getMessage("messages.note-given")
-                                .replace("[money]", plugin.formatDouble(amount))
-                                .replace("[player]", target.getName())));
-                    }
-
-        */
-
                 }
             }
             return true;
