@@ -151,13 +151,13 @@ public class BanknotePlugin extends JavaPlugin {
      * @return The banknote as an item
      */
     public ItemStack createBanknote(String creatorName, double amount) {
+        if (creatorName.equals("CONSOLE")) {
+            creatorName = getConfig().getString("settings.console-name");
+        }
         List<String> formatLore = new ArrayList<String>();
 
         // Format the base lore
         for (String baseLore : this.baseLore) {
-            if (creatorName.equals("CONSOLE")) {
-                creatorName = getConfig().getString("settings.console-name");
-            }
             formatLore.add(colorMessage(baseLore.replace("[money]", formatDouble(amount)).replace("[player]", creatorName)));
         }
 
