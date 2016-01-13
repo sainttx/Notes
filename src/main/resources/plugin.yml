@@ -3,7 +3,7 @@ version: ${project.version}
 description: ${project.description}
 author: SainttX
 
-main: com.sainttx.banknotes.BanknotePlugin
+main: com.sainttx.notes.NotesPlugin
 depend: [ Vault ]
 
 commands:

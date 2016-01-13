@@ -1,4 +1,4 @@
-package com.sainttx.banknotes;
+package com.sainttx.notes;
 
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
@@ -13,17 +13,17 @@ import org.bukkit.inventory.ItemStack;
 /**
  * Created by Matthew on 14/01/2015.
  */
-public class BanknoteListener implements Listener {
+public class PlayerListener implements Listener {
 
     /*
      * The plugin instance
      */
-    private BanknotePlugin plugin;
+    private NotesPlugin plugin;
 
     /**
      * Creates the note listener
      */
-    public BanknoteListener(BanknotePlugin plugin) {
+    public PlayerListener(NotesPlugin plugin) {
         this.plugin = plugin;
     }
 

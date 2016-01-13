@@ -1,6 +1,6 @@
-package com.sainttx.banknotes.command;
+package com.sainttx.notes.command;
 
-import com.sainttx.banknotes.BanknotePlugin;
+import com.sainttx.notes.NotesPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,12 +17,12 @@ public class BanknotesCommand implements CommandExecutor {
     /*
      * The plugin instance
      */
-    private BanknotePlugin plugin;
+    private NotesPlugin plugin;
 
     /**
      * Creates the "/deposit" command handler
      */
-    public BanknotesCommand(BanknotePlugin plugin) {
+    public BanknotesCommand(NotesPlugin plugin) {
         this.plugin = plugin;
     }
 

@@ -1,8 +1,8 @@
-package com.sainttx.banknotes;
+package com.sainttx.notes;
 
-import com.sainttx.banknotes.command.BanknotesCommand;
-import com.sainttx.banknotes.command.DepositCommand;
-import com.sainttx.banknotes.command.WithdrawCommand;
+import com.sainttx.notes.command.BanknotesCommand;
+import com.sainttx.notes.command.DepositCommand;
+import com.sainttx.notes.command.WithdrawCommand;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
 /**
  * Created by Matthew on 14/01/2015.
  */
-public class BanknotePlugin extends JavaPlugin {
+public class NotesPlugin extends JavaPlugin {
 
     /*
      * The base item
@@ -47,7 +47,7 @@ public class BanknotePlugin extends JavaPlugin {
     public void onEnable() {
         // Save configuration and register listeners
         saveDefaultConfig();
-        getServer().getPluginManager().registerEvents(new BanknoteListener(this), this);
+        getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 
         // Register commands
         getCommand("withdraw").setExecutor(new WithdrawCommand(this));
@@ -62,7 +62,7 @@ public class BanknotePlugin extends JavaPlugin {
 
                 if (provider == null) {
                     getLogger().info("Failed to find a valid economy provider, disabling...");
-                    getServer().getPluginManager().disablePlugin(BanknotePlugin.this);
+                    getServer().getPluginManager().disablePlugin(NotesPlugin.this);
                 } else {
                     economy = provider.getProvider();
                     getLogger().info("Found economy provider " + provider.getPlugin().getName());

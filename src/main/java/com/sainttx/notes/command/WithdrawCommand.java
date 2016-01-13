@@ -1,6 +1,6 @@
-package com.sainttx.banknotes.command;
+package com.sainttx.notes.command;
 
-import com.sainttx.banknotes.BanknotePlugin;
+import com.sainttx.notes.NotesPlugin;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -17,12 +17,12 @@ public class WithdrawCommand implements CommandExecutor {
     /*
     * The plugin instance
     */
-    private BanknotePlugin plugin;
+    private NotesPlugin plugin;
 
     /**
      * Creates the "/withdraw <amount>" command handler
      */
-    public WithdrawCommand(BanknotePlugin plugin) {
+    public WithdrawCommand(NotesPlugin plugin) {
         this.plugin = plugin;
     }
 
